@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <windows.h>
+#include <time.h>
+#include <stdlib.h>
+
+
+void menu(void);
+void display(int H_pos, int T_pos);
+bool wins(int);
+void makemov(int *,int *);
+void moveTortoise(int * ,int );
+void moveHare(int *, int);
+int main(void){
+
+    menu();
+    srand((unsigned)time(NULL));
+    int T_pos= 7, H_pos= 10;
+    while(1){
+
+        makemov(&H_pos, &T_pos);
+
+        if(wins(T_pos)||wins(H_pos)){
+            display(H_pos, T_pos);
+            break;
+        }
+
+        else{
+            display(H_pos,T_pos);
+        }
+        Sleep(1000);
+    }
+    return 0;
+
+}
+
+void menu(void){
+
+printf("Hare vs. Tortoise\n");
+printf("-----------------\n");
+printf("\n");
+printf("Bang!!!!!!!!! AND THEY'RE OFF!!!!!\n");
+}
+
+void display( int H_pos, int T_pos){
+    int i;
+    printf("S");
+    for(i= 2; i<=70; i++){
+        if((H_pos == T_pos)&&(H_pos == i)){
+            printf("OUCH");
+        }
+        else if (H_pos == i){
+            printf("H");
+        }
+        else if (T_pos == i){
+            printf("T");
+        }
+        else if (i == 70){
+
+            printf("F");
+
+        }
+        else if (i %10 == 0){
+            printf("|");
+
+        }
+
+        else{
+            printf(".");
+        }
+
+    }
+    printf("\n");
+
+    printf("Tortoise: %d\n", T_pos);
+    printf("Hare: %d\n", H_pos);
+
+    if (wins(T_pos) && wins(H_pos)){
+        printf("It's a Tie\n");
+    }
+    else if (wins(T_pos)){
+        printf("Tortoise WINS\n");
+
+    }
+    else if(wins(H_pos)){
+        printf("Hare WINS\n");
+    }
+
+}
+
+bool wins(int pos){
+
+return pos >= 70;
+}
+
+void makemov(int *H_pos, int *T_pos){
+    int rand_num  = rand() %10 + 1;
+    moveTortoise(T_pos, rand_num);
+    moveHare(H_pos, rand_num);
+
+}
+
+void moveTortoise(int *T_pos, int rand_num){
+    if(rand_num >= 1 && rand_num <= 5){
+        *T_pos += 3;
+    }
+    else if (rand_num >= 6 && rand_num <= 7){
+        *T_pos -= 6;
+        if (*T_pos < 1)
+            *T_pos = 1;
+    }
+    else {
+        *T_pos += 1;
+    }
+}
+void moveHare(int *H_pos,int rand_num){
+
+    if (rand_num >= 1 && rand_num <= 2)
+        ;
+    else if(rand_num >2 && rand_num <= 4){
+        *H_pos +=9;
+    }
+    else if(rand_num ==5){
+        *H_pos -= 12;
+    }
+    else if (rand_num >= 6 && rand_num <= 8){
+        *H_pos += 1;
+    }
+    else {
+        *H_pos -= 2;
+    }
+
+}
+
+
+

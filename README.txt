@@ -1,0 +1,1 @@
+It's a Hare vs Tortoise game using random number generator. Whom ever get to the 70 wins.
